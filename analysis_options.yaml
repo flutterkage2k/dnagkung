@@ -80,11 +80,11 @@ linter:
   - prefer_asserts_in_initializer_lists
     #  - prefer_bool_in_asserts # Deprecated
     #  - prefer_const_constructors
-  - prefer_const_constructors_in_immutables
+    #  - prefer_const_constructors_in_immutables
     #  - prefer_const_declarations # under review (see #1068)
     #  - prefer_const_literals_to_create_immutables # under review (see #1068)
   - prefer_constructors_over_static_methods
-  - prefer_expression_function_bodies
+    # prefer_expression_function_bodies
   - prefer_final_fields
     #  - prefer_final_locals
   - prefer_foreach
