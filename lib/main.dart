@@ -13,10 +13,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'DoHyeon'),
-      home: Scaffold(
-        backgroundColor: Colors.red,
-        appBar: AppBar(
-          title: const Text("home"),
+      home: const SplashScreen(),
+    );
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(
+          color: Colors.amber,
         ),
       ),
     );
