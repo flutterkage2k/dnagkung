@@ -32,6 +32,7 @@ dependencies:
   get: ^4.3.8
   google_fonts: ^2.1.0
   lint: ^1.7.2
+  extended_image: ^5.1.3
 
 
 

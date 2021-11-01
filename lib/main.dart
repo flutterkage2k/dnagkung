@@ -1,3 +1,4 @@
+import 'package:dnagkung/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,22 +14,44 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'DoHyeon'),
-      home: const SplashScreen(),
+      home: const Root(),
     );
   }
 }
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(
-          color: Colors.amber,
-        ),
-      ),
+    return Container(
+      color: Colors.amber,
     );
+  }
+}
+
+class Root extends StatelessWidget {
+  const Root({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: Future.delayed(Duration(seconds: 3), () => 100),
+        builder: (context, snapshot) {
+          return AnimatedSwitcher(
+              duration: Duration(seconds: 3), child: _splashLoading(snapshot));
+        });
+  }
+
+  StatelessWidget _splashLoading(AsyncSnapshot<Object?> snapshot) {
+    if (snapshot.hasError) {
+      // print('error occur while loading.');
+      Get.snackbar("error", "error occur while loading");
+    } else if (snapshot.hasData) {
+      return HomePage();
+    } else {
+      return SplashScreen();
+    }
+    return HomePage();
   }
 }
