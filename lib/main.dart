@@ -52,6 +52,8 @@ class TomatoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        routeInformationParser: BeamerParser(), routerDelegate: _routeDelegate);
+        theme: ThemeData(primarySwatch: Colors.red, fontFamily: 'DoHyeon'),
+        routeInformationParser: BeamerParser(),
+        routerDelegate: _routeDelegate);
   }
 }
