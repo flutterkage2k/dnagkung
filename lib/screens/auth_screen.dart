@@ -1,3 +1,4 @@
+import 'package:dnagkung/screens/start/address_page.dart';
 import 'package:dnagkung/screens/start/intro_page.dart';
 import 'package:flutter/material.dart';
 
@@ -16,9 +17,7 @@ class AuthScreen extends StatelessWidget {
           controller: _pageController,
           children: [
             IntroPage(_pageController),
-            Container(
-              color: Colors.accents[2],
-            ),
+            AddressPage(),
             Container(
               color: Colors.accents[5],
             )
