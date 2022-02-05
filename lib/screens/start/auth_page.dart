@@ -1,9 +1,13 @@
 import 'package:dnagkung/constants/common_size.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 class AuthPage extends StatelessWidget {
   AuthPage({Key? key}) : super(key: key);
+
+  TextEditingController _textEditingController =
+      TextEditingController(text: "010");
 
   final inputBorder =
       OutlineInputBorder(borderSide: BorderSide(color: Colors.grey));
@@ -42,7 +46,9 @@ class AuthPage extends StatelessWidget {
                   height: 16,
                 ),
                 TextFormField(
+                  controller: _textEditingController,
                   keyboardType: TextInputType.phone,
+                  inputFormatters: [MaskedInputFormatter("000 0000 0000")],
                   decoration: InputDecoration(
                       focusedBorder: inputBorder, border: inputBorder),
                 )
