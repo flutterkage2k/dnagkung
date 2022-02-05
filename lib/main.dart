@@ -53,16 +53,33 @@ class TomatoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
         theme: ThemeData(
-            primarySwatch: Colors.red,
-            fontFamily: 'DoHyeon',
-            hintColor: Colors.grey[350],
-            textTheme: TextTheme(
-              button: TextStyle(color: Colors.white),
-            ),
-            appBarTheme: AppBarTheme(
-                backgroundColor: Colors.white,
-                elevation: 2,
-                titleTextStyle: TextStyle(color: Colors.black87))),
+          primarySwatch: Colors.red,
+          fontFamily: 'DoHyeon',
+          hintColor: Colors.grey[350],
+          textTheme: TextTheme(
+            button: TextStyle(color: Colors.white),
+            subtitle1: TextStyle(color: Colors.black87, fontSize: 15),
+            subtitle2: TextStyle(color: Colors.grey, fontSize: 13),
+            bodyText1: TextStyle(
+                color: Colors.black87,
+                fontSize: 12,
+                fontWeight: FontWeight.normal),
+            bodyText2: TextStyle(
+                color: Colors.black54,
+                fontSize: 12,
+                fontWeight: FontWeight.w100),
+          ),
+          appBarTheme: AppBarTheme(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black87,
+              elevation: 2,
+              titleTextStyle: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'DoHyeon',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+              actionsIconTheme: IconThemeData(color: Colors.black87)),
+        ),
         routeInformationParser: BeamerParser(),
         routerDelegate: _routeDelegate);
   }

@@ -42,6 +42,7 @@ class AuthPage extends StatelessWidget {
                   height: 16,
                 ),
                 TextFormField(
+                  keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                       focusedBorder: inputBorder, border: inputBorder),
                 )
