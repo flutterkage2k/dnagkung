@@ -19,14 +19,13 @@ class AuthPage extends StatelessWidget {
         Size size = MediaQuery.of(context).size;
         return Scaffold(
           appBar: AppBar(
-            title: Text(
-              '전화번호 로그인',
-              style: Theme.of(context).appBarTheme.titleTextStyle,
-            ),
+            title: Text('전화번호 로그인',
+                style: Theme.of(context).appBarTheme.titleTextStyle),
           ),
           body: Padding(
             padding: const EdgeInsets.all(common_padding),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
                   children: [
@@ -51,7 +50,31 @@ class AuthPage extends StatelessWidget {
                   inputFormatters: [MaskedInputFormatter("000 0000 0000")],
                   decoration: InputDecoration(
                       focusedBorder: inputBorder, border: inputBorder),
-                )
+                ),
+                SizedBox(
+                  height: common_padding,
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text('인증문자 발송'),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextFormField(
+                  controller: _textEditingController,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [MaskedInputFormatter("000 0000 0000")],
+                  decoration: InputDecoration(
+                      focusedBorder: inputBorder, border: inputBorder),
+                ),
+                SizedBox(
+                  height: common_padding,
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text('인증문자 발송'),
+                ),
               ],
             ),
           ),
