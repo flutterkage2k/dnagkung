@@ -1,3 +1,4 @@
+import 'package:dnagkung/constants/common_size.dart';
 import 'package:dnagkung/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,7 +10,7 @@ class AddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      minimum: EdgeInsets.only(left: 16, right: 16),
+      minimum: EdgeInsets.only(left: common_padding, right: common_padding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -45,7 +46,7 @@ class AddressPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 16),
+              padding: EdgeInsets.symmetric(vertical: common_padding),
               itemCount: 10,
               itemBuilder: (context, index) {
                 return ListTile(

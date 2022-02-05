@@ -1,6 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:dnagkung/router/locations.dart';
-import 'package:dnagkung/screens/auth_screen.dart';
+import 'package:dnagkung/screens/start_screen.dart';
 import 'package:dnagkung/screens/splash_screen.dart';
 import 'package:dnagkung/utils/logger.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ final _routeDelegate = BeamerDelegate(guards: [
       check: (context, location) {
         return false;
       },
-      showPage: BeamPage(child: AuthScreen()))
+      showPage: BeamPage(child: StartScreen()))
 ], locationBuilder: BeamerLocationBuilder(beamLocations: [HomeLocation()]));
 
 void main() {
@@ -55,7 +55,14 @@ class TomatoApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.red,
             fontFamily: 'DoHyeon',
-            hintColor: Colors.grey[400]),
+            hintColor: Colors.grey[350],
+            textTheme: TextTheme(
+              button: TextStyle(color: Colors.white),
+            ),
+            appBarTheme: AppBarTheme(
+                backgroundColor: Colors.white,
+                elevation: 2,
+                titleTextStyle: TextStyle(color: Colors.black87))),
         routeInformationParser: BeamerParser(),
         routerDelegate: _routeDelegate);
   }
