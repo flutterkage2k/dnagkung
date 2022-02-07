@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:dnagkung/constants/common_size.dart';
 import 'package:dnagkung/states/user_provider.dart';
 import 'package:dnagkung/utils/logger.dart';
