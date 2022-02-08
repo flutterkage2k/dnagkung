@@ -5,6 +5,7 @@ import 'package:dnagkung/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 class AddressPage extends StatefulWidget {
   AddressPage({Key? key}) : super(key: key);
@@ -46,7 +47,32 @@ class _AddressPageState extends State<AddressPage> {
             ),
           ),
           TextButton.icon(
-            onPressed: () {
+            onPressed: () async {
+              Location location = new Location();
+
+              bool _serviceEnabled;
+              PermissionStatus _permissionGranted;
+              LocationData _locationData;
+
+              _serviceEnabled = await location.serviceEnabled();
+              if (!_serviceEnabled) {
+                _serviceEnabled = await location.requestService();
+                if (!_serviceEnabled) {
+                  return;
+                }
+              }
+
+              _permissionGranted = await location.hasPermission();
+              if (_permissionGranted == PermissionStatus.denied) {
+                _permissionGranted = await location.requestPermission();
+                if (_permissionGranted != PermissionStatus.granted) {
+                  return;
+                }
+              }
+
+              _locationData = await location.getLocation();
+              logger.d(_locationData);
+
               // final text = _addressController.text;
               // if (text.isNotEmpty) {
               //   AddressService().searchAddressByStr(text);
@@ -81,10 +107,9 @@ class _AddressPageState extends State<AddressPage> {
                   return Container();
                 return ListTile(
                   title: Text(
-                      _addressModel!.result!.items![index].address!.road! ??
-                          ""),
+                      _addressModel!.result!.items![index].address!.road ?? ""),
                   subtitle: Text(
-                      _addressModel!.result!.items![index].address!.parcel! ??
+                      _addressModel!.result!.items![index].address!.parcel ??
                           ""),
                 );
               },
