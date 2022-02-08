@@ -1,14 +1,22 @@
 import 'package:dnagkung/constants/common_size.dart';
+import 'package:dnagkung/data/address_model.dart';
 import 'package:dnagkung/screens/start/address_service.dart';
 import 'package:dnagkung/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AddressPage extends StatelessWidget {
+class AddressPage extends StatefulWidget {
   AddressPage({Key? key}) : super(key: key);
 
+  @override
+  State<AddressPage> createState() => _AddressPageState();
+}
+
+class _AddressPageState extends State<AddressPage> {
   TextEditingController _addressController = TextEditingController();
+
+  AddressModel? _addressModel;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +27,10 @@ class AddressPage extends StatelessWidget {
         children: [
           TextFormField(
             controller: _addressController,
+            onFieldSubmitted: (text) async {
+              _addressModel = await AddressService().searchAddressByStr(text);
+              setState(() {});
+            },
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.search,
@@ -35,10 +47,10 @@ class AddressPage extends StatelessWidget {
           ),
           TextButton.icon(
             onPressed: () {
-              final text = _addressController.text;
-              if (text.isNotEmpty) {
-                AddressService().searchAddressByStr(text);
-              }
+              // final text = _addressController.text;
+              // if (text.isNotEmpty) {
+              //   AddressService().searchAddressByStr(text);
+              // }
             },
             icon: Icon(
               CupertinoIcons.compass,
@@ -56,11 +68,24 @@ class AddressPage extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.symmetric(vertical: common_padding),
-              itemCount: 10,
+              itemCount: (_addressModel == null ||
+                      _addressModel!.result == null ||
+                      _addressModel!.result!.items == null)
+                  ? 0
+                  : _addressModel!.result!.items!.length,
               itemBuilder: (context, index) {
+                if (_addressModel == null ||
+                    _addressModel!.result == null ||
+                    _addressModel!.result!.items == null ||
+                    _addressModel!.result!.items![index].address == null)
+                  return Container();
                 return ListTile(
-                  title: Text('address $index'),
-                  subtitle: Text('subtitle $index'),
+                  title: Text(
+                      _addressModel!.result!.items![index].address!.road! ??
+                          ""),
+                  subtitle: Text(
+                      _addressModel!.result!.items![index].address!.parcel! ??
+                          ""),
                 );
               },
             ),

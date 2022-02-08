@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dnagkung/constants/keys.dart';
+import 'package:dnagkung/data/address_model.dart';
 import 'package:dnagkung/utils/logger.dart';
 
 class AddressService {
@@ -23,7 +24,9 @@ class AddressService {
   //   logger.d(response);
   // }
 
-  void searchAddressByStr(String text) async {
+// api site : https://www.vworld.kr/
+
+  Future<AddressModel> searchAddressByStr(String text) async {
     final formData = {
       'key': VWORLD_KEY,
       'request': 'search',
@@ -38,6 +41,10 @@ class AddressService {
         .catchError((e) {
       logger.e(e.mssage);
     });
-    logger.d(responese);
+
+    AddressModel addressModel =
+        AddressModel.fromJson(responese.data["response"]);
+    logger.d(addressModel);
+    return addressModel;
   }
 }
