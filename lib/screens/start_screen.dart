@@ -2,6 +2,7 @@ import 'package:dnagkung/screens/start/address_page.dart';
 import 'package:dnagkung/screens/start/auth_page.dart';
 import 'package:dnagkung/screens/start/intro_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StartScreen extends StatelessWidget {
   StartScreen({Key? key}) : super(key: key);
@@ -11,16 +12,19 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-          // physics: NeverScrollableScrollPhysics(),
-          //physics: NeverScrollableScrollPhysics(), 손가락으로 스와이프는 막는다.
-          controller: _pageController,
-          children: [
-            IntroPage(_pageController),
-            AddressPage(),
-            AuthPage(),
-          ]),
+    return Provider<PageController>.value(
+      value: _pageController,
+      child: Scaffold(
+        body: PageView(
+            // physics: NeverScrollableScrollPhysics(),
+            //physics: NeverScrollableScrollPhysics(), 손가락으로 스와이프는 막는다.
+            controller: _pageController,
+            children: [
+              IntroPage(),
+              AddressPage(),
+              AuthPage(),
+            ]),
+      ),
     );
   }
 }

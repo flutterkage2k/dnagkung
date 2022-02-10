@@ -20,6 +20,7 @@ final _routeDelegate = BeamerDelegate(guards: [
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   logger.d('My first log by logger!!');
+  Provider.debugCheckInvalidValueType = null;
   runApp(const MyApp());
 }
 
@@ -84,6 +85,9 @@ class TomatoApp extends StatelessWidget {
                 minimumSize: Size(48, 48),
               ),
             ),
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                selectedItemColor: Colors.red,
+                unselectedItemColor: Colors.black54),
             appBarTheme: AppBarTheme(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black87,

@@ -1,9 +1,11 @@
 import 'package:dnagkung/constants/common_size.dart';
 import 'package:dnagkung/states/user_provider.dart';
+import 'package:dnagkung/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthPage extends StatefulWidget {
   AuthPage({Key? key}) : super(key: key);
@@ -83,6 +85,7 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                     TextButton(
                       onPressed: () {
+                        // _getAddress();
                         if (_formKey.currentState != null) {
                           bool passed = _formKey.currentState!.validate();
                           print(passed);
@@ -179,6 +182,12 @@ class _AuthPageState extends State<AuthPage> {
     });
 
     context.read<UserProvider>().setUserAuth(true);
+  }
+
+  _getAddress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String address = prefs.getString('address') ?? "";
+    logger.d('Address from shared pref - $address');
   }
 }
 

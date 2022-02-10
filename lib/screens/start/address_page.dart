@@ -7,6 +7,8 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddressPage extends StatefulWidget {
   AddressPage({Key? key}) : super(key: key);
@@ -21,6 +23,12 @@ class _AddressPageState extends State<AddressPage> {
   AddressModel? _addressModel;
   List<AddressModel2> _addressModel2List = [];
   bool _isGettingLocation = false;
+
+  @override
+  void dispose() {
+    _addressController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +139,11 @@ class _AddressPageState extends State<AddressPage> {
                       _addressModel!.result!.items![index].address == null)
                     return Container();
                   return ListTile(
+                    onTap: () {
+                      _saveAddressAndGoToNextPage(
+                          _addressModel!.result!.items![index].address!.road ??
+                              "");
+                    },
                     title: Text(
                         _addressModel!.result!.items![index].address!.road ??
                             ""),
@@ -151,6 +164,10 @@ class _AddressPageState extends State<AddressPage> {
                       _addressModel2List[index].result!.isEmpty)
                     return Container();
                   return ListTile(
+                    onTap: () {
+                      _saveAddressAndGoToNextPage(
+                          _addressModel2List[index].result![0].text ?? "");
+                    },
                     title:
                         Text(_addressModel2List[index].result![0].text ?? ""),
                     subtitle: Text(
@@ -162,5 +179,18 @@ class _AddressPageState extends State<AddressPage> {
         ],
       ),
     );
+  }
+
+  _saveAddressAndGoToNextPage(String address) async {
+    await _saveAddressOnSharedPreference(address);
+
+    context.read<PageController>().animateToPage(2,
+        duration: Duration(milliseconds: 500), curve: Curves.ease);
+  }
+
+  _saveAddressOnSharedPreference(String address) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('address', address);
   }
 }

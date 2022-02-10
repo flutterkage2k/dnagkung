@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:dnagkung/constants/common_size.dart';
 import 'package:dnagkung/states/user_provider.dart';
 import 'package:dnagkung/utils/logger.dart';
@@ -7,12 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class IntroPage extends StatelessWidget {
-  PageController controller;
+  IntroPage({Key? key}) : super(key: key);
 
-  IntroPage(this.controller, {Key? key}) : super(key: key);
-
-  void onButtonClick() {
-    controller.animateToPage(1,
+  void onButtonClick(BuildContext context) {
+    context.read<PageController>().animateToPage(1,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
     logger.d('on text button  clicked!!');
   }
@@ -63,7 +60,9 @@ class IntroPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TextButton(
-                    onPressed: onButtonClick,
+                    onPressed: () async {
+                      onButtonClick(context);
+                    },
                     style: TextButton.styleFrom(backgroundColor: Colors.blue),
                     child: Text(
                       '시작',
