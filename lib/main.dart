@@ -13,7 +13,7 @@ final _routeDelegate = BeamerDelegate(guards: [
       pathBlueprints: ['/'],
       check: (context, location) {
         //context.read<어떤context를 가져오느냐>()
-        return context.watch<UserProvider>().userState;
+        return context.watch<UserProvider>().user != null;
       },
       showPage: BeamPage(child: StartScreen()))
 ], locationBuilder: BeamerLocationBuilder(beamLocations: [HomeLocation()]));

@@ -2,6 +2,7 @@ import 'package:dnagkung/constants/common_size.dart';
 import 'package:dnagkung/states/user_provider.dart';
 import 'package:dnagkung/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:provider/provider.dart';
@@ -84,15 +85,52 @@ class _AuthPageState extends State<AuthPage> {
                       height: common_padding,
                     ),
                     TextButton(
-                      onPressed: () {
+                      onPressed: () async {
                         // _getAddress();
                         if (_formKey.currentState != null) {
                           bool passed = _formKey.currentState!.validate();
                           print(passed);
-                          if (passed)
-                            setState(() {
-                              _verificationStatus = VerificationStatus.codeSent;
-                            });
+                          if (passed) {
+                            FirebaseAuth auth = FirebaseAuth.instance;
+
+                            await auth.verifyPhoneNumber(
+                              phoneNumber: '+821044445555',
+                              verificationCompleted:
+                                  (PhoneAuthCredential credential) async {
+                                // ANDROID ONLY!
+
+                                // Sign the user in (or link) with the auto-generated credential
+                                await auth.signInWithCredential(credential);
+                              },
+                              codeAutoRetrievalTimeout:
+                                  (String verificationId) {},
+                              codeSent: (String verificationId,
+                                  int? forceResendingToken) async {
+                                // setState(() {
+                                //   _verificationStatus =
+                                //       VerificationStatus.codeSent;
+                                // });
+
+                                String smsCode = '555555';
+
+                                // Create a PhoneAuthCredential with the code
+                                PhoneAuthCredential credential =
+                                    PhoneAuthProvider.credential(
+                                        verificationId: verificationId,
+                                        smsCode: smsCode);
+
+                                // Sign the user in (or link) with the credential
+                                await auth.signInWithCredential(credential);
+                              },
+                              verificationFailed:
+                                  (FirebaseAuthException error) {
+                                logger.e(error.message);
+                              },
+                            );
+                          }
+                          // setState(() {
+                          //   _verificationStatus = VerificationStatus.codeSent;
+                          // });
                         }
                       },
                       child: Text('인증문자 발송'),
@@ -125,7 +163,7 @@ class _AuthPageState extends State<AuthPage> {
                       height: getVerificationButtonHeight(_verificationStatus),
                       child: TextButton(
                         onPressed: () {
-                          attemptVerify();
+                          attemptVerify(context);
                         },
                         child: (_verificationStatus ==
                                 VerificationStatus.verifying)
@@ -171,17 +209,17 @@ class _AuthPageState extends State<AuthPage> {
     }
   }
 
-  void attemptVerify() async {
-    setState(() {
-      _verificationStatus = VerificationStatus.verifying;
-    });
-    await Future.delayed(Duration(seconds: 1));
+  void attemptVerify(BuildContext context) async {
+    // setState(() {
+    //   _verificationStatus = VerificationStatus.verifying;
+    // });
+    // await Future.delayed(Duration(seconds: 1));
 
-    setState(() {
-      _verificationStatus = VerificationStatus.verificationDone;
-    });
+    // setState(() {
+    //   _verificationStatus = VerificationStatus.verificationDone;
+    // });
 
-    context.read<UserProvider>().setUserAuth(true);
+    // context.read<UserProvider>().setUserAuth(true);
   }
 
   _getAddress() async {

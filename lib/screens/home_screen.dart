@@ -1,6 +1,7 @@
 import 'package:dnagkung/screens/home/items_page.dart';
 import 'package:dnagkung/states/user_provider.dart';
 import 'package:dnagkung/utils/logger.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,20 +52,18 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("양촌읍", style: Theme.of(context).appBarTheme.titleTextStyle),
         actions: [
           IconButton(
-            onPressed: () {
-              context.read<UserProvider>().setUserAuth(false);
-            },
+            onPressed: () {},
             icon: Icon(CupertinoIcons.search),
           ),
           IconButton(
             onPressed: () {
-              context.read<UserProvider>().setUserAuth(false);
+              // context.read<UserProvider>().setUserAuth(false);
             },
             icon: Icon(CupertinoIcons.text_justify),
           ),
           IconButton(
             onPressed: () {
-              context.read<UserProvider>().setUserAuth(false);
+              FirebaseAuth.instance.signOut();
             },
             icon: Icon(CupertinoIcons.nosign),
           ),
