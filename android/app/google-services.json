@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "784306939775",
+    "project_id": "temp-tomato-record",
+    "storage_bucket": "temp-tomato-record.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784306939775:android:ef82f6403cefff19215c4a",
+        "android_client_info": {
+          "package_name": "com.flutterkage2k.dnagkung"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784306939775-kpal93f08i05qfh9o3mktcs8mp2k7fce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6shwNi5gBvnu_dQvw-WHVkQEQVRaW9ZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784306939775-kpal93f08i05qfh9o3mktcs8mp2k7fce.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
