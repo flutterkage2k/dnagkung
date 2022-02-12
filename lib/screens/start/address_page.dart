@@ -18,10 +18,10 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
-  TextEditingController _addressController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
 
   AddressModel? _addressModel;
-  List<AddressModel2> _addressModel2List = [];
+  final List<AddressModel2> _addressModel2List = [];
   bool _isGettingLocation = false;
 
   @override
