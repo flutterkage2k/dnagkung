@@ -4,6 +4,7 @@ import 'package:dnagkung/screens/start_screen.dart';
 import 'package:dnagkung/screens/splash_screen.dart';
 import 'package:dnagkung/states/user_provider.dart';
 import 'package:dnagkung/utils/logger.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,13 +25,20 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Future.delayed(Duration(milliseconds: 300), () => 100),
+        future: _initialization,
         builder: (context, snapshot) {
           return AnimatedSwitcher(
               duration: Duration(milliseconds: 300),
@@ -42,7 +50,7 @@ class MyApp extends StatelessWidget {
     if (snapshot.hasError) {
       // print('error occur while loading.');
       return Text('Error occur');
-    } else if (snapshot.hasData) {
+    } else if (snapshot.connectionState == ConnectionState.done) {
       return TomatoApp();
     } else {
       return SplashScreen();
