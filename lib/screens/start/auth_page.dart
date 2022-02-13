@@ -235,7 +235,7 @@ class _AuthPageState extends State<AuthPage> {
       _verificationStatus = VerificationStatus.verifying;
     });
     // Update the UI - wait for the user to enter the SMS code
-    String smsCode = '55555';
+
     try {
       // Create a PhoneAuthCredential with the code
       PhoneAuthCredential credential = PhoneAuthProvider.credential(

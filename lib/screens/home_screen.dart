@@ -62,8 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(CupertinoIcons.text_justify),
           ),
           IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
             },
             icon: Icon(CupertinoIcons.nosign),
           ),
