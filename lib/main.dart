@@ -8,15 +8,25 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-final _routeDelegate = BeamerDelegate(guards: [
-  BeamGuard(
+final _routeDelegate = BeamerDelegate(
+  guards: [
+    BeamGuard(
       pathBlueprints: ['/'],
       check: (context, location) {
         //context.read<어떤context를 가져오느냐>()
         return context.watch<UserProvider>().user != null;
       },
-      showPage: BeamPage(child: StartScreen()))
-], locationBuilder: BeamerLocationBuilder(beamLocations: [HomeLocation()]));
+      showPage: BeamPage(
+        child: StartScreen(),
+      ),
+    )
+  ],
+  locationBuilder: BeamerLocationBuilder(
+    beamLocations: [
+      HomeLocation(),
+    ],
+  ),
+);
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
